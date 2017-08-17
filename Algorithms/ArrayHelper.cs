@@ -34,9 +34,7 @@ namespace Algorithms
                     }
                 }
 
-                if (i == j && array[j].CompareTo(pivot) > 0) j--;
-
-                Switch(array, left, j);
+                Switch(array, left, i - 1);
 
                 QuickSort(array, left, j - 1);
                 QuickSort(array, j + 1, right);

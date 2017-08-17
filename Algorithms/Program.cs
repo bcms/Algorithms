@@ -21,7 +21,7 @@ namespace Algorithms
             ArrayHelper.QuickSort(array1);
             Console.WriteLine(string.Join(", ", array1));
 
-            var array2 = new[] { 30, 31, 20, 18, 40, 14, 16, 8, 19, 10, 25, 65 };
+            var array2 = new[] { 30, 31, 20, 18, 22, 18, 40, 17, 14, 16, 8, 19, 10, 25, 65 };
             ArrayHelper.QuickSort(array2);
             Console.WriteLine(string.Join(", ", array2));
 
