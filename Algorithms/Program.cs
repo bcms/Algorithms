@@ -10,24 +10,24 @@ namespace Algorithms
     {
         static void Main(string[] args)
         {
+            //Question B
             //Console.WriteLine(QuestionB(new[] { "apple", "ape", "apricot" }));
             //Console.WriteLine(QuestionB(new[] { "banana", "bandido" }));
             //Console.WriteLine(QuestionB(new[] { "banana", "banana" }));
 
+            //Question C
             //Console.WriteLine(string.Join(", ", QuestionC(new[] { 40, 30, 31, 20, 18, 14, 16, 8, 19 })));
             //Console.WriteLine(string.Join(", ", QuestionC(new[] { 6, 2, 7, 3, 1, 5 })));
 
-            var array1 = new[] { 30, 31, 20, 18, 40, 14, 16, 8, 19 };
-            ArrayHelper.QuickSort(array1);
-            Console.WriteLine(string.Join(", ", array1));
+            //Question D
+            //Console.WriteLine(QuestionD("Hello World!", "I`m  happy! Hello World baby!"));
+            //Console.WriteLine(QuestionD("I've kidnapped your dog! I wanna a million dollars!", "No way baby! No way baby! No way baby! No way baby! No way baby!"));
 
-            var array2 = new[] { 30, 31, 20, 18, 22, 18, 40, 17, 14, 16, 8, 19, 10, 25, 65 };
-            ArrayHelper.QuickSort(array2);
-            Console.WriteLine(string.Join(", ", array2));
-
-            var array3 = "bhdjklspormbjdhaalçssss  ".ToCharArray();
-            ArrayHelper.QuickSort(array3);
-            Console.WriteLine(string.Join(", ", array3));
+            //Question F
+            //Console.WriteLine(QuestionF("((()()))(())()()"));
+			//Console.WriteLine(QuestionF("())"));
+			//Console.WriteLine(QuestionF("))("));
+            //Console.WriteLine(QuestionF("((((()))(())))"));
 
             Console.ReadKey();
         }
@@ -120,53 +120,48 @@ namespace Algorithms
 
         static bool QuestionD(string ransomNote, string magazineText)
         {
-            return false;
-        }
+            if (ransomNote.Length > magazineText.Length)
+                return false;
+            
+            var ransomNoteArray = ransomNote.ToLower().Replace(" ","").ToCharArray();
+            var magazineTextArray = magazineText.ToLower().Replace(" ", "").ToCharArray();
 
-        static void QuickSort(int[] array, int left, int right)
-        {
-            if (left < right)
+            ArrayHelper.QuickSort(ransomNoteArray);
+            ArrayHelper.QuickSort(magazineTextArray);
+
+            int j = 0;
+            for (int i = 0; i < ransomNoteArray.Length; i++)
             {
-                int pivotIndex = Separate(array, left, right);
+                while (ransomNoteArray[i] > magazineTextArray[j])
+                    j++;
 
-                QuickSort(array, left, pivotIndex - 1);
-                QuickSort(array, pivotIndex + 1, right);
+                if (ransomNoteArray[i] == magazineTextArray[j])
+                    j++;
+                else
+                    return false; 
             }
+
+            return true;
         }
 
-        private static int Separate(int[] array, int left, int right)
-        {
-            var pivot = array[left];
-            int i = left + 1, j = right;
+        static bool QuestionF(string text){
+            var arrayText = text.ToArray();
 
-            while (i < j)
+            int openParenthesis = 0;
+            foreach (var item in arrayText)
             {
-                while (i < right && array[i] <= pivot) i++;
-
-                while (j >= left && array[j] > pivot) j--;
-
-                if (i < j)
+                if (item == '(')
+                    openParenthesis++;
+                else
                 {
-                    Switch(array, i, j);
-
-                    i++;
-                    j--;
+                    if (openParenthesis == 0)
+                        return false;
+                    else if (openParenthesis > 0)
+                        openParenthesis--;
                 }
             }
 
-            if (i == j && array[j] > pivot)
-                j--;
-
-            Switch(array, left, j);
-
-            return j;
-        }
-
-        private static void Switch(int[] array, int i, int j)
-        {
-            var aux = array[i];
-            array[i] = array[j];
-            array[j] = aux;
+            return openParenthesis == 0;
         }
     }
 }
