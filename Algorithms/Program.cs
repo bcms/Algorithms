@@ -10,6 +10,14 @@ namespace Algorithms
     {
         static void Main(string[] args)
         {
+            //Question A
+            //Console.WriteLine(
+            //    QuestionA(
+            //        new int[,] {
+            //            { 5, 1, 3, 6, 5, 6, 6 },
+            //            { 5, 4, 8, 6, 6, 8, 4 }
+            //        }));
+
             //Question B
             //Console.WriteLine(QuestionB(new[] { "apple", "ape", "apricot" }));
             //Console.WriteLine(QuestionB(new[] { "banana", "bandido" }));
@@ -25,11 +33,32 @@ namespace Algorithms
 
             //Question F
             //Console.WriteLine(QuestionF("((()()))(())()()"));
-			//Console.WriteLine(QuestionF("())"));
-			//Console.WriteLine(QuestionF("))("));
+            //Console.WriteLine(QuestionF("())"));
+            //Console.WriteLine(QuestionF("))("));
             //Console.WriteLine(QuestionF("((((()))(())))"));
 
             Console.ReadKey();
+        }
+
+        static int QuestionA(int[,] input) {
+            var result = 0;
+
+            for (int i = 0; i < input.GetLength(0); i++)
+            {
+                for (int j = 0; j < input.GetLength(1); j++)
+                {
+                    var value = input[i, j];
+                    var rightValue = (input.GetLength(1) > j + 1) ? input[i, j + 1] : (int?)null;
+                    var leftValue = (j - 1 >= 0) ? input[i, j - 1] : (int?)null;
+                    var topValue = (i - 1 >= 0) ? input[i - 1, j] : (int?)null;
+                    var bellowValue = (input.GetLength(0) > i + 1) ? input[i + 1, j] : (int?)null;
+
+                    if ((value == rightValue || value == bellowValue) && value != topValue && value != leftValue)
+                        result++;
+                }    
+            }
+
+            return result;
         }
 
         static string QuestionB(string[] input)
